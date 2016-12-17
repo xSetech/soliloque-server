@@ -67,7 +67,7 @@ def configure(conf):
   # Compile flags
   cflags = ['-O0', '-g', '-ggdb']
   cflags.extend(flags_dbg1)
-  conf.env.append_unique('CCFLAGS', cflags)
+  conf.env.append_unique('CFLAGS', cflags)
   # default environment
   conf.setenv('default')
   conf.check_cfg(atleast_pkgconfig_version='0.0.0')

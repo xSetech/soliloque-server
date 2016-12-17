@@ -64,10 +64,6 @@ def configure(conf):
   import Options
   read_git_version()
   conf.check_tool('gcc')
-  # Compile flags
-  cflags = ['-O0', '-g', '-ggdb']
-  cflags.extend(flags_dbg1)
-  conf.env.append_unique('CFLAGS', cflags)
   # default environment
   conf.setenv('default')
   conf.check_cfg(atleast_pkgconfig_version='0.0.0')
@@ -84,9 +80,13 @@ def configure(conf):
 
   conf.check_cfg(package='libbsd', args='--cflags --libs', uselib_store='LIBBSD')
   conf.check(define_name='HAVE_ARC4RANDOM', function_name='arc4random', header_name='bsd/bsd.h', uselib='LIBBSD', errmsg='will use insecure random()')
-
   # Check for strndup (not present on OSX)
   conf.check(cflags='-D_GNU_SOURCE', define_name='HAVE_STRNDUP', function_name='strndup', header_name='string.h', errmsg='internal')
+  # Compile flags
+  cflags = ['-O0', '-g', '-ggdb']
+  cflags.extend(flags_dbg1)
+  conf.env.append_unique('CFLAGS', cflags)
+  # Create header
   conf.define('VERSION', VERSION)
   conf.write_config_header('config.h')
 
